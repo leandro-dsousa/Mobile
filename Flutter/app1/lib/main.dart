@@ -65,8 +65,32 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _showReg() {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('This is a typical dialog.'),
+              const SizedBox(height: 15),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          )
+        )
+        ));
+  }
+
+
   final List<String> entries = <String>['A', 'B', 'C'];
-  final List<int> colorCodes = <int>[600, 500, 100];
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    const cardColor = Color.fromRGBO(224, 224, 224, 1);
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -106,16 +133,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (context,int index){
                   return Container(
                     height: 50,
-                    color: Colors.amber[colorCodes[index]],
+                    color: cardColor,
                     child: Center(
-                        child: Text('Entry ${entries[index]}')
+                        child: TextButton(
+                          onPressed: _showReg,
+                          //() => showDialog<String>(
+                            //             context: context,
+                            //             builder: (BuildContext context) => Dialog(
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(8.0),
+                            //                 child: Column(
+                            //                   mainAxisSize: MainAxisSize.min,
+                            //                   mainAxisAlignment: MainAxisAlignment.center
+                          child: Text(
+                              'Entry ${entries[index]}'
+                          )
+                        )
                     ),
                   );
                 },
-                separatorBuilder: (context, int index) => const Divider(color: Colors.white),
+                separatorBuilder: (context, int index) => const Divider(
+                    color: Colors.white
+                ),
                 itemCount: 3,
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8)
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4)
             )
           ],
         ),
